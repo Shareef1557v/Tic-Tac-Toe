@@ -1,0 +1,342 @@
+<meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tic Tac Toe by SRF</title>
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- Google AdMob SDK -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+</head>
+<body>
+  <div class="game-container">
+    <h1 class="game-title">
+      <span class="blue">Tic</span>
+      <span class="white">Tac</span>
+      <span class="blue">Toe</span>
+    </h1>
+
+    <!-- Scoreboard -->
+    <div class="scoreboard">
+      <div class="score">
+        <p>Player X</p>
+        <span id="scoreX">0</span>
+      </div>
+      <div class="score">
+        <p>Player O</p>
+        <span id="scoreO">0</span>
+      </div>
+    </div>
+
+    <!-- Game Mode Buttons -->
+    <div class="controls">
+      <button id="aiMode" class="control-btn">AI Mode</button>
+      <button id="offlineMode" class="control-btn">Offline Mode</button>
+    </div>
+
+    <!-- Game Board -->
+    <div class="board">
+      <div class="cell" data-index="0"></div>
+      <div class="cell" data-index="1"></div>
+      <div class="cell" data-index="2"></div>
+      <div class="cell" data-index="3"></div>
+      <div class="cell" data-index="4"></div>
+      <div class="cell" data-index="5"></div>
+      <div class="cell" data-index="6"></div>
+      <div class="cell" data-index="7"></div>
+      <div class="cell" data-index="8"></div>
+    </div>
+
+    <!-- Reset Buttons -->
+    <div class="controls">
+      <button id="resetGame" class="control-btn blue-btn">Reset Game</button>
+      <button id="resetScores" class="control-btn green-btn">Reset Scores</button>
+    </div>
+
+    <!-- Ad Section (Placed near Footer) -->
+    <div class="ad-container">
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="pub-9890046781759914" <!-- Replace with your Publisher ID -->
+           data-ad-slot="ca-app-pub-9890046781759914/1755664328" <!-- Replace with your Ad Unit ID -->
+           data-ad-format="auto"></ins>
+      <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <p>Created by SRF</p>
+    </footer>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html><style>/* General Styles */
+body {
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  background: linear-gradient(135deg, #3a3d98, #a3eaff);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.game-container {
+  background: #ffffff;
+  padding: 20px 30px;
+  border-radius: 15px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  width: 100%;
+  max-width: 400px;
+}
+
+/* Title */
+.game-title {
+  font-family: 'Cursive', sans-serif;
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+  color: #333333;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.blue {
+  color: #3a3d98;
+}
+
+.white {
+  color: #ffffff;
+  text-shadow: 2px 2px 2px #000000;
+}
+
+/* Scoreboard */
+.scoreboard {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.score {
+  font-size: 1.2rem;
+  color: #333333;
+}
+
+.score span {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #3a3d98;
+}
+
+/* Game Mode Buttons */
+.control-btn {
+  padding: 12px 20px;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #ffffff;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  margin: 10px 5px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+#aiMode {
+  background: linear-gradient(135deg, #3a3d98, #5c6bc0);
+}
+
+#offlineMode {
+  background: linear-gradient(135deg, #28a745, #34d399);
+}
+
+/* Button Hover Effects */
+.control-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+#resetGame {
+  background: linear-gradient(135deg, #f44336, #f57c00);
+}
+
+#resetScores {
+  background: linear-gradient(135deg, #4caf50, #81c784);
+}
+
+#resetGame:hover {
+  background: linear-gradient(135deg, #d32f2f, #ff7043);
+}
+
+#resetScores:hover {
+  background: linear-gradient(135deg, #388e3c, #66bb6a);
+}
+
+.controls {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+/* Board */
+.board {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.cell {
+  width: 100px;
+  height: 100px;
+  background: linear-gradient(to bottom right, #d9e4f5, #f1f6fd);
+  border-radius: 10px;
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #333333;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.cell:hover {
+  transform: scale(1.05);
+  background: linear-gradient(to bottom right, #b8c9e4, #dde9f7);
+}
+
+/* Footer */
+.footer {
+  margin-top: 20px;
+  font-size: 0.9rem;
+  color: #666666;
+}
+
+/* Ad Section */
+.ad-container {
+  margin-top: 20px;
+  text-align: center;
+}</style><script>let board = ["", "", "", "", "", "", "", "", ""];
+let currentPlayer = "X";
+let scores = { X: 0, O: 0 };
+let gameActive = true;
+let isAI = false;
+
+const cells = document.querySelectorAll(".cell");
+const resetGameButton = document.getElementById("resetGame");
+const resetScoresButton = document.getElementById("resetScores");
+const scoreXDisplay = document.getElementById("scoreX");
+const scoreODisplay = document.getElementById("scoreO");
+
+const aiModeButton = document.getElementById("aiMode");
+const offlineModeButton = document.getElementById("offlineMode");
+
+function resetBoard() {
+  board.fill("");
+  cells.forEach(cell => (cell.textContent = ""));
+  gameActive = true;
+  currentPlayer = "X";
+}
+
+function resetScores() {
+  scores.X = 0;
+  scores.O = 0;
+  updateScoreboard();
+}
+
+function updateScoreboard() {
+  scoreXDisplay.textContent = scores.X;
+  scoreODisplay.textContent = scores.O;
+}
+
+function checkWinner() {
+  const winPatterns = [
+    [0, 1, 2], [3, 4, 5], [6, 7, 8],
+    [0, 3, 6], [1, 4, 7], [2, 5, 8],
+    [0, 4, 8], [2, 4, 6],
+  ];
+
+  for (const pattern of winPatterns) {
+    const [a, b, c] = pattern;
+    if (board[a] && board[a] === board[b] && board[a] === board[c]) {
+      gameActive = false;
+      return board[a];
+    }
+  }
+
+  if (!board.includes("")) return "Draw";
+  return null;
+}
+
+function handleClick(event) {
+  const index = event.target.dataset.index;
+
+  if (!gameActive || board[index]) return;
+
+  board[index] = currentPlayer;
+  event.target.textContent = currentPlayer;
+
+  const winner = checkWinner();
+
+  if (winner) {
+    if (winner === "Draw") {
+      alert("It's a draw!");
+    } else {
+      alert(`Player ${winner} wins!`);
+      scores[winner]++;
+    }
+    updateScoreboard();
+    setTimeout(resetBoard, 1000);
+  } else {
+    currentPlayer = currentPlayer === "X" ? "O" : "X";
+    if (isAI && currentPlayer === "O") {
+      aiMove();
+    }
+  }
+}
+
+function aiMove() {
+  const availableMoves = board
+    .map((cell, index) => (cell === "" ? index : null))
+    .filter(index => index !== null);
+
+  const randomMove = availableMoves[Math.floor(Math.random() * availableMoves.length)];
+  setTimeout(() => {
+    board[randomMove] = "O";
+    cells[randomMove].textContent = "O";
+    const winner = checkWinner();
+    if (winner) {
+      if (winner === "Draw") {
+        alert("It's a draw!");
+      } else {
+        alert(`Player ${winner} wins!`);
+        scores[winner]++;
+      }
+      updateScoreboard();
+      setTimeout(resetBoard, 1000);
+    } else {
+      currentPlayer = "X";
+    }
+  }, 1000); // AI delay of 1 second
+}
+
+function handleGameMode(mode) {
+  isAI = mode === "AI";
+  resetBoard();
+}
+
+cells.forEach(cell => cell.addEventListener("click", handleClick));
+resetGameButton.addEventListener("click", resetBoard);
+resetScoresButton.addEventListener("click", resetScores);
+updateScoreboard();
+
+aiModeButton.addEventListener("click", () => handleGameMode("AI"));
+offlineModeButton.addEventListener("click", () => handleGameMode("Offline"));</script>
